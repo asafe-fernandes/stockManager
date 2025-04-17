@@ -1,0 +1,15 @@
+{% extends "base.html" %} {% block content %}
+<h1>Itens no estoque</h1>
+<ul>
+    {% for item in items %}
+    <li>
+        <div>
+            <strong>{{ item.name }}</strong> {{ item.price}} {{ item.quantity}} <br>
+        </div>
+        {% empty %}
+        <li>Nenhum item cadastrado</li>
+        {% endfor %}
+    </li>
+</ul>
+
+{% endblock %}
