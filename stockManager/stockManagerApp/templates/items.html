@@ -1,15 +1,30 @@
 {% extends "base.html" %} {% block content %}
 <h1>Itens no estoque</h1>
-<ul>
-    {% for item in items %}
-    <li>
-        <div>
-            <strong>{{ item.name }}</strong> {{ item.price}} {{ item.quantity}} <br>
-        </div>
-        {% empty %}
-        <li>Nenhum item cadastrado</li>
-        {% endfor %}
-    </li>
-</ul>
-
+{% if items %}
+    <table border="1" cellpadding="10" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Quantidade</th>
+                <th>Preco</th>
+                <th>Fornecedor</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.vendorName }}</td>
+                <td>
+                    <a href="{% url 'editItem' item.id %}">Editar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>Nenhum item cadastrado</p>
+{% endif %}
 {% endblock %}
