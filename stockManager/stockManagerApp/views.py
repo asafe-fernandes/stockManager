@@ -33,3 +33,11 @@ def editItem(request, id):
     else:
         form = ItemForm(instance=item)
     return render(request, "edit_item.html", {"form": form, "edit": True})
+
+
+def deleteItem(request, id):
+    item = Item.objects.get(id=id)
+    if request.method == "POST":
+        item.delete()
+        return redirect('itens')
+    return redirect('itens')

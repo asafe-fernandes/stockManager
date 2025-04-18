@@ -1,7 +1,8 @@
 {% extends "base.html" %} {% block content %}
 <h1>Itens no estoque</h1>
+<a href="{% url 'createItem' %}" class="btn btn-success mb-3">Adicionar</a>
 {% if items %}
-    <table border="1" cellpadding="10" cellspacing="0">
+    <table class="table table-bordered table-striped table-hover w-100">
         <thead>
             <tr>
                 <th>Nome</th>
@@ -18,7 +19,32 @@
                 <td>{{ item.price }}</td>
                 <td>{{ item.vendorName }}</td>
                 <td>
-                    <a href="{% url 'editItem' item.id %}">Editar</a>
+                    <div class="d-flex gap-2">
+                        <a href="{% url 'editItem' item.id %}" class="btn btn-sm btn-primary">Editar</a>
+                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ item.id }}">
+                         Excluir
+                        </button>
+                    </div>
+                    <div class="modal fade" id="confirmDeleteModal{{ item.id }}" tabindex="-1" aria-labelledby="modalLabel{{ item.id }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form method="post" action="{% url 'deleteItem' item.id %}">
+                                    {% csrf_token %}
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modalLabel{{ item.id }}">Confirmar Exclusão</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Tem certeza que deseja excluir o item <strong>{{ item.name }}</strong>?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-danger">Sim, excluir</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </td>
             </tr>
             {% endfor %}
