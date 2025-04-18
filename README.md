@@ -8,7 +8,7 @@ Um pequeno projeto feito em django que controla um estoque de itens
 
 1. **clone o projeto**
 ```bash
-git clone git@github.com:asafe-fernandes/stockManager.git
+git clone https://github.com/asafe-fernandes/stockManager.git
 cd stockManager/stockManager
 ```
 
