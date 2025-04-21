@@ -16,11 +16,11 @@ class ItemForm(forms.ModelForm):
     def clean_quantity(self):
         quantity = self.cleaned_data.get("quantity")
         if quantity < 0:
-            raise forms.ValidationError("Quantity cannot be negative")
+            raise forms.ValidationError("Quantity cannot be negative.")
         return quantity
 
     def clean_price(self):
         price = self.cleaned_data.get("price")
         if price < 0:
-            raise forms.ValidationError("Price cannot be negative")
+            raise forms.ValidationError("Price cannot be negative.")
         return price

@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block content %}
 <h1>Itens no estoque</h1>
-<a href="{% url 'createItem' %}" class="btn btn-success mb-3">Adicionar</a>
+<a href="{% url 'create_item' %}" class="btn btn-success mb-3">Adicionar</a>
 {% if items %}
     <table class="table table-bordered table-striped table-hover w-100">
         <thead>
@@ -17,10 +17,10 @@
                 <td>{{ item.name }}</td>
                 <td>{{ item.quantity }}</td>
                 <td>{{ item.price }}</td>
-                <td>{{ item.vendorName }}</td>
+                <td>{{ item.vendor_name }}</td>
                 <td>
                     <div class="d-flex gap-2">
-                        <a href="{% url 'editItem' item.id %}" class="btn btn-sm btn-primary">Editar</a>
+                        <a href="{% url 'edit_item' item.id %}" class="btn btn-sm btn-primary">Editar</a>
                         <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ item.id }}">
                          Excluir
                         </button>
@@ -28,7 +28,7 @@
                     <div class="modal fade" id="confirmDeleteModal{{ item.id }}" tabindex="-1" aria-labelledby="modalLabel{{ item.id }}" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <form method="post" action="{% url 'deleteItem' item.id %}">
+                                <form method="post" action="{% url 'delete_item' item.id %}">
                                     {% csrf_token %}
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="modalLabel{{ item.id }}">Confirmar Exclusão</h5>
