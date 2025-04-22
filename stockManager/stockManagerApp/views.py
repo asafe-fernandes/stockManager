@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Item
 from .forms import ItemForm
 
@@ -9,7 +9,6 @@ def home_view(request):
 
 def items_list_view(request):
     items = Item.objects.all()
-    print(items)
     return render(request, "items.html", {"items": items})
 
 
@@ -17,7 +16,6 @@ def create_item_view(request):
     if request.method == "POST":
         form = ItemForm(request.POST)
         if form.is_valid():
-            print(form.cleaned_data)
             form.save()
             return redirect('items_list')
     else:
@@ -38,8 +36,7 @@ def edit_item_view(request, id):
 
 
 def delete_item_view(request, id):
-    item = Item.objects.get(id=id)
+    item = get_object_or_404(Item, id=id)
     if request.method == "POST":
         item.delete()
-        return redirect('items_list')
     return redirect('items_list')
